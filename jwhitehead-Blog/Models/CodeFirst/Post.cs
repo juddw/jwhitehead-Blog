@@ -20,6 +20,9 @@ namespace jwhitehead_Blog.Models.CodeFirst
         public DateTime Created { get; set; }
         public DateTime? UpdatedDate { get; set; } //question mark means it is now nullable.
         public string MediaUrl { get; set; }
+        // add then update database.
+        public bool Published { get; set; } // if published it will be true and visible to public, if not false only visible to admin.
+        public string Slug { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
     }

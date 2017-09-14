@@ -51,8 +51,11 @@ namespace jwhitehead_Blog.Models.CodeFirst
             return new ApplicationDbContext();
         }
 
-        // added this to generate table in SQL server
-        public DbSet<Post> Post { get; set; }
+        /* jw: added this to generate table in SQL server
+       <Post> references the class in the Models folder. Determines the table name that is generated.
+        Posts is simply the variable name that is associated with the table name.
+        You do not need to update-database if you change variable name. */
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
     }
 }
