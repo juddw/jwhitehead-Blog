@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace jwhitehead_Blog.Models.CodeFirst
 {
@@ -9,7 +10,10 @@ namespace jwhitehead_Blog.Models.CodeFirst
     {
         // Created these
         public int Id { get; set; }
+
+        [AllowHtml]
         public string Body { get; set; }
+
         public DateTime CreationDate { get; set; }
         public DateTime? UpdatedDate { get; set; } //question mark means it is now nullable.
         public string UpdateReason { get; set; }

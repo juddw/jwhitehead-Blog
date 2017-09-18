@@ -10,6 +10,7 @@ using jwhitehead_Blog.Models.CodeFirst;
 
 namespace jwhitehead_Blog.Controllers
 {
+    [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -36,17 +37,19 @@ namespace jwhitehead_Blog.Controllers
             return View(comment);
         }
 
-        // GET: Comments/Create
-        public ActionResult Create()
-        {
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.BlogPostId = new SelectList(db.Posts, "Id", "Title");
-            return View();
-        }
+        //// GET: Comments/Create
+        //[Authorize] // this will only allow access to anyone logged in.
+        //public ActionResult Create()
+        //{
+        //    ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
+        //    ViewBag.BlogPostId = new SelectList(db.Posts, "Id", "Title");
+        //    return View();
+        //}
 
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize] // this will only allow access to the Admin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Body,CreationDate,UpdatedDate,UpdateReason,BlogPostId,AuthorId")] Comment comment)
@@ -64,6 +67,7 @@ namespace jwhitehead_Blog.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize(Roles = "Admin, Moderator")] // this will only allow access to the Admin and Moderator
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,6 +87,7 @@ namespace jwhitehead_Blog.Controllers
         // POST: Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Moderator")] // this will only allow access to the Admin and Moderator
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Body,CreationDate,UpdatedDate,UpdateReason,BlogPostId,AuthorId")] Comment comment)
@@ -99,6 +104,7 @@ namespace jwhitehead_Blog.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize(Roles = "Admin, Moderator")] // this will only allow access to the Admin and Moderator
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -114,6 +120,7 @@ namespace jwhitehead_Blog.Controllers
         }
 
         // POST: Comments/Delete/5
+        [Authorize(Roles = "Admin, Moderator")] // this will only allow access to the Admin and Moderator
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

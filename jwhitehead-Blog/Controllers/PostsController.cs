@@ -13,6 +13,7 @@ using jwhitehead_Blog.Helpers;
 
 namespace jwhitehead_Blog.Controllers
 {
+    [RequireHttps]
     public class PostsController : Controller
     {
         // instantiate the db object from IdentityModels.
@@ -26,7 +27,6 @@ namespace jwhitehead_Blog.Controllers
         }
 
         // GET: Posts/Details/5
-
         public ActionResult Details(string slug)
         {
             if (String.IsNullOrWhiteSpace(slug))
@@ -57,6 +57,7 @@ namespace jwhitehead_Blog.Controllers
         //}
 
         // GET: Posts/Create
+        [Authorize(Roles = "Admin")] // this will only allow access to the Admin
         public ActionResult Create()
         {
             return View(); // jw: returns the view (probably a form view to fill out)
@@ -66,7 +67,8 @@ namespace jwhitehead_Blog.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 
-        [HttpPost]
+        [Authorize(Roles = "Admin")] // this will only allow access to the Admin
+        [HttpPost] // Identifies as a post action when multiple actions have the same name.
         [ValidateAntiForgeryToken] // jw: auto generated token in hidden field. When user submits info it matches userId with token.
                                    // jw: get all information from user's info from form field and puts it in the object variable post.
         public ActionResult Create([Bind(Include = "Id,Title,Body,MediaURL,Published")] Post blogPost)
@@ -86,7 +88,7 @@ namespace jwhitehead_Blog.Controllers
                 }
 
                 blogPost.Slug = Slug;
-                blogPost.Created = DateTime.Now;
+                blogPost.Created = DateTime.Now; // changed from "DateTimeOffset.Now"
                 // jw: add any properties that did not come through here. If you deleted Created above then
                 // you bind here example: post.Created = DateTime.Now;
                 db.Posts.Add(blogPost); // jw: add object to db
@@ -99,6 +101,7 @@ namespace jwhitehead_Blog.Controllers
 
 
         // GET: Posts/Edit/5
+        [Authorize(Roles = "Admin")] // this will only allow access to the Admin
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -116,6 +119,7 @@ namespace jwhitehead_Blog.Controllers
         // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")] // this will only allow access to the Admin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,UpdatedDate,MediaUrl,Published,Slug")] Post post)
@@ -130,6 +134,7 @@ namespace jwhitehead_Blog.Controllers
         }
 
         // GET: Posts/Delete/5
+        [Authorize(Roles = "Admin")] // this will only allow access to the Admin
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -145,6 +150,7 @@ namespace jwhitehead_Blog.Controllers
         }
 
         // POST: Posts/Delete/5
+        [Authorize(Roles = "Admin")] // this will only allow access to the Admin
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

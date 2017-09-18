@@ -10,6 +10,7 @@ using jwhitehead_Blog.Models;
 
 namespace jwhitehead_Blog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

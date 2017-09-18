@@ -13,6 +13,7 @@ using jwhitehead_Blog.Models.CodeFirst;
 
 namespace jwhitehead_Blog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
