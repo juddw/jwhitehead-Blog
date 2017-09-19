@@ -226,6 +226,7 @@
     <Content Include="assets\images\bg-portfolio.jpg" />
     <Content Include="assets\images\bg-resume.png" />
     <Content Include="assets\images\bg-twitter.png" />
+    <Content Include="assets\images\blog-images\birdImage.jpg" />
     <Content Include="assets\images\blog-thumb.png" />
     <Content Include="assets\images\bugTracker-thumb.jpg" />
     <Content Include="assets\images\calculator-thumb.png" />

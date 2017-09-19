@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc; // holds ActionResult 
 using jwhitehead_Blog.Models.CodeFirst;
 using jwhitehead_Blog.Helpers;
+using System.IO;
 
 namespace jwhitehead_Blog.Controllers
 {
@@ -71,8 +72,16 @@ namespace jwhitehead_Blog.Controllers
         [HttpPost] // Identifies as a post action when multiple actions have the same name.
         [ValidateAntiForgeryToken] // jw: auto generated token in hidden field. When user submits info it matches userId with token.
                                    // jw: get all information from user's info from form field and puts it in the object variable post.
-        public ActionResult Create([Bind(Include = "Id,Title,Body,MediaURL,Published")] Post blogPost)
+        public ActionResult Create([Bind(Include = "Id,Title,Body,MediaURL,Published")] Post blogPost, HttpPostedFileBase image)
         {
+            // Validation.
+            if (image != null && image.ContentLength > 0) // checking to make sure there is a file, and that the file has more than 0 bytes of information.
+            {
+                var ext = Path.GetExtension(image.FileName).ToLower();
+                if (ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".gif" && ext != ".bmp")
+                    ModelState.AddModelError("image", "Invalid Format."); // Don't need curly braces with only one line of code.
+            }
+
             if (ModelState.IsValid)
             {
                 var Slug = StringUtilities.URLFriendly(blogPost.Title);
@@ -86,6 +95,12 @@ namespace jwhitehead_Blog.Controllers
                     ModelState.AddModelError("Title", "The title must be unique");
                     return View(blogPost);
                 }
+
+                // For Image Upload
+                var filePath = "/assets/images/blog-images/"; // url path
+                var absPath = Server.MapPath("~" + filePath);  // physical file path
+                blogPost.MediaUrl = filePath + image.FileName; // path of the file
+                image.SaveAs(Path.Combine(absPath, image.FileName)); // saves
 
                 blogPost.Slug = Slug;
                 blogPost.Created = DateTime.Now; // changed from "DateTimeOffset.Now"
@@ -122,14 +137,35 @@ namespace jwhitehead_Blog.Controllers
         [Authorize(Roles = "Admin")] // this will only allow access to the Admin
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,UpdatedDate,MediaUrl,Published,Slug")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,UpdatedDate,MediaUrl,Published,Slug")] Post post, string mediaURL, HttpPostedFileBase image )
         {
+            // Image Upload Validation.
+            if (image != null && image.ContentLength > 0) // checking to make sure there is a file, and that the file has more than 0 bytes of information.
+            {
+                var ext = Path.GetExtension(image.FileName).ToLower();
+                if (ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".gif" && ext != ".bmp")
+                    ModelState.AddModelError("image", "Invalid Format."); // Don't need curly braces with only one line of code.
+            }
+            
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified; // jw: if any properties are modified it will save.
+                if (image != null)
+                {
+                    var filePath = "/assets/images/"; // url path
+                    var absPath = Server.MapPath("~" + filePath);  // physical file path
+                    post.MediaUrl = filePath + image.FileName; // path of the file
+                    image.SaveAs(Path.Combine(absPath, image.FileName)); // saves
+                }
+                else
+                {
+                    post.MediaUrl = mediaURL;
+                }
+                post.UpdatedDate = System.DateTime.Now;
                 db.SaveChanges(); // jW: even if nothing changes and submit button is hit, it will rewrite the same info to db.
                 return RedirectToAction("Index");
             }
+
             return View(post);
         }
 
