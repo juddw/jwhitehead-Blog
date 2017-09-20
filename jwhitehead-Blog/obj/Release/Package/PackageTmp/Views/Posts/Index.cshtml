@@ -42,7 +42,11 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.Raw(item.Body)  @*This removes html tags from the string.*@
+                @{
+                    var shortDescript = String.Concat(item.Body.Take(75));
+                }
+                @Html.Raw(shortDescript)...@*This removes html tags from the string.*@
+                @*@Html.Raw(item.Body)*@  
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)

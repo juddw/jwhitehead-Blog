@@ -356,3 +356,37 @@ input {
 /*------------------------------------------
 ---- Modal Exercises Styling End ----
 --------------------------------------------*/
+
+
+
+/*------------------------------------------
+---- Blog Items Edit, Delete, Details Buttons ----
+--------------------------------------------*/
+ .createNewText {
+    font-weight: 500;
+    color: #377989;
+}
+
+.createNewText:hover {
+    font-weight: 500;
+    color: #377989;
+}
+
+
+.readMoreText,
+.backToListText,
+.detailsText,
+.deleteText,
+.editText {
+    font-weight: 500;
+    color: #377989;
+}
+
+    .readMoreText:hover,
+    .backToListText:hover,
+    .detailsText:hover,
+    .deleteText:hover,
+    .editText:hover {
+        font-weight: 500;
+        color: #377989;
+    }

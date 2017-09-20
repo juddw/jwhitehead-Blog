@@ -8,6 +8,9 @@
 
 <div>
     <h4>Post</h4>
+    <div>
+        <img src="@Model.MediaUrl" />
+    </div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -69,6 +72,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) <span>|</span>
+    }
+   
     @Html.ActionLink("Back to List", "Index")
 </p>

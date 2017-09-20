@@ -14,7 +14,7 @@ using System.IO;
 
 namespace jwhitehead_Blog.Controllers
 {
-    [RequireHttps]
+    [RequireHttps] // one of the steps to force the page to render secure page.
     public class PostsController : Controller
     {
         // instantiate the db object from IdentityModels.
@@ -24,7 +24,7 @@ namespace jwhitehead_Blog.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            return View(db.Posts.ToList()); // jw: sends list to view
+            return View(db.Posts.OrderByDescending(p => p.Id).ToList()); // jw: sends list to view
         }
 
         // GET: Posts/Details/5
@@ -96,11 +96,14 @@ namespace jwhitehead_Blog.Controllers
                     return View(blogPost);
                 }
 
-                // For Image Upload
-                var filePath = "/assets/images/blog-images/"; // url path
-                var absPath = Server.MapPath("~" + filePath);  // physical file path
-                blogPost.MediaUrl = filePath + image.FileName; // path of the file
-                image.SaveAs(Path.Combine(absPath, image.FileName)); // saves
+                if (image != null)
+                {
+                    // For Image Upload
+                    var filePath = "/assets/images/blog-images/"; // url path
+                    var absPath = Server.MapPath("~" + filePath);  // physical file path
+                    blogPost.MediaUrl = filePath + image.FileName; // path of the file
+                    image.SaveAs(Path.Combine(absPath, image.FileName)); // savesvar filePath = "/helpers/img/";
+                }
 
                 blogPost.Slug = Slug;
                 blogPost.Created = DateTime.Now; // changed from "DateTimeOffset.Now"
@@ -137,7 +140,7 @@ namespace jwhitehead_Blog.Controllers
         [Authorize(Roles = "Admin")] // this will only allow access to the Admin
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,UpdatedDate,MediaUrl,Published,Slug")] Post post, string mediaURL, HttpPostedFileBase image )
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,UpdatedDate,MediaUrl,Published,Slug")] Post post, string mediaURL, HttpPostedFileBase image)
         {
             // Image Upload Validation.
             if (image != null && image.ContentLength > 0) // checking to make sure there is a file, and that the file has more than 0 bytes of information.
@@ -146,7 +149,7 @@ namespace jwhitehead_Blog.Controllers
                 if (ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".gif" && ext != ".bmp")
                     ModelState.AddModelError("image", "Invalid Format."); // Don't need curly braces with only one line of code.
             }
-            
+
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified; // jw: if any properties are modified it will save.

@@ -83,7 +83,7 @@
                     <li>
                         <a>|</a>
                     </li>
-                    @Html.Partial("_LoginPartial") @*displays login and log off cshtml page on top of*@
+                    @Html.Partial("_LoginPartial") @*displays login and log off cshtml page on top of _Layout*@
                 </ul>
             </div><!--End navbar-collapse -->
 
@@ -106,7 +106,7 @@
     <!-- ==============================================
     RENDER BODY
     =============================================== -->
-    <section id="services" class="add-padding">
+    <section class="add-padding">
 
         <div class="container" style="padding-top: 40px">
             @RenderBody()
