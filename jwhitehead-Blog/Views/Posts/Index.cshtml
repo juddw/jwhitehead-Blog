@@ -1,12 +1,20 @@
 ﻿@*I in IEnumberable stands for Interface, allow for foreach loop to work. Enumerate.
     Interfaces only have the declarations
     model points to model folder.*@
-@model IEnumerable<jwhitehead_Blog.Models.CodeFirst.Post>
-
+@model IPagedList<jwhitehead_Blog.Models.CodeFirst.Post>
+@using PagedList;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Index";
 }
-
+@using (Html.BeginForm("Index", "Posts", FormMethod.Post))
+{
+    <div>
+        <input name="searchStr" type="text" placeholder="Search" value="@ViewBag.Search" />
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+}
 <h2>Index</h2>
 
 <p>
@@ -18,16 +26,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.First().Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Body)
+            @Html.DisplayNameFor(model => model.First().Body)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Created)
+            @Html.DisplayNameFor(model => model.First().Created)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UpdatedDate)
+            @Html.DisplayNameFor(model => model.First().UpdatedDate)
         </th>
         <th>
             Image
@@ -73,3 +81,6 @@
                     }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))

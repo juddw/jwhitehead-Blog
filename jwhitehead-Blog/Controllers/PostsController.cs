@@ -11,6 +11,8 @@ using System.Web.Mvc; // holds ActionResult
 using jwhitehead_Blog.Models.CodeFirst;
 using jwhitehead_Blog.Helpers;
 using System.IO;
+using PagedList;
+using PagedList.Mvc;
 
 namespace jwhitehead_Blog.Controllers
 {
@@ -22,9 +24,34 @@ namespace jwhitehead_Blog.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Posts.OrderByDescending(p => p.Id).ToList()); // jw: sends list to view
+            int pageSize = 3;
+            int pageNumber = (page ?? 1); // if page is null, it defaults to page 1.
+
+            if(Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                return View(db.Posts.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
+            }
+
+            return View(db.Posts.Where(p => p.Published == true).OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize)); // jw: sends list to view
+        }
+
+        [HttpPost]
+        public ActionResult Index(string searchStr, int? page)
+        {
+            int pageSize = 3;
+            int pageNumber = (page ?? 1); // if page is null, it defaults to page 1.
+
+            ViewBag.Search = searchStr; // this is a way to hold the search term when mulitple pages are presented in search.
+            SearchHelper search = new SearchHelper();
+            var blogList = search.IndexSearch(searchStr);
+
+            if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                return View(blogList.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize)); // jw: sends list to view
+            }
+            return View(blogList.Where(p => p.Published == true).OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Posts/Details/5

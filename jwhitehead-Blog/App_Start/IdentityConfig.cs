@@ -15,10 +15,45 @@ namespace jwhitehead_Blog
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            // username, etc. available because of private.config file.
+            var GmailUsername = WebConfigurationManager.AppSettings["username"];
+            var GmailPassword = WebConfigurationManager.AppSettings["password"];
+            var host = WebConfigurationManager.AppSettings["host"];
+            int port = Convert.ToInt32(WebConfigurationManager.AppSettings["port"]);
+
+            // using statement allows you to dispose of object from memory.
+            // you need to use using statement in views too to dispose of.
+            // these variables are defined properties in the SmtpClient Class definition.
+            using (var smtp = new SmtpClient()
+            {
+                Host = host,
+                Port = port,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(GmailUsername, GmailPassword)
+            })
+
+            using (var email = new MailMessage("MyBlog<juddwhitehead@gmail.com>", message.Destination)
+            {
+                Subject = message.Subject,
+                IsBodyHtml = true,
+                Body = message.Body
+            })
+            {
+                try // waits so that it runs at the end.
+                {
+                    await smtp.SendMailAsync(email);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    await Task.FromResult(0);
+
+                }
+            };
         }
     }
 

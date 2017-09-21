@@ -4,78 +4,111 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<!-- ==============================================
+   BLOG DETAILS
+   =============================================== -->
+
+<div class="row add-padding bg-color2">
+
+
+    @if (Model.MediaUrl == "")
+    {
+        // no image available so format wider.
+        <div class="col-sm-9 scrollimation fade-left d3" style="margin-left: 30px;">
+
+            <p class="lead" style="font-weight: 500; font-size: 100%; margin-top: 20px;">
+                @Html.DisplayFor(model => model.Created)
+            </p>
+
+            <h1 class="big-text" id="myAboutMeHeader">
+                @Html.DisplayFor(model => model.Title)
+            </h1>
+
+            <div class="lead">
+                @*@Html.DisplayFor(model => model.Body)*@
+                <p>@Html.Raw(Model.Body)</p>
+            </div>
+
+            <br />
+            <p class="darkBrownText" style="font-weight: 500; font-size: 100%;">
+                Updated:
+                @Html.DisplayFor(model => model.UpdatedDate)
+            </p>
+
+        </div>
+    }
+
+    else
+    {
+        // image is available so format this way.
+        <div class="col-sm-5 scrollimation fade-right d1" style="margin-left: 30px;">
+            <img class="img-responsive polaroid" src="@Model.MediaUrl" alt="" />
+        </div>
+
+        <div class="col-sm-5 scrollimation fade-left d3" style="margin-left: 50px;">
+
+            <p class="lead" style="font-weight: 500; font-size: 100%; margin-top: 20px;">
+                @Html.DisplayFor(model => model.Created)
+            </p>
+
+            <h1 class="big-text" id="myAboutMeHeader">
+                @Html.DisplayFor(model => model.Title)
+            </h1>
+
+            <div class="lead">
+                @*@Html.DisplayFor(model => model.Body)*@
+                <p>@Html.Raw(Model.Body)</p>
+            </div>
+
+            <br />
+            <p class="darkBrownText" style="font-weight: 500; font-size: 100%;">
+                Updated:
+                @Html.DisplayFor(model => model.UpdatedDate)
+            </p>
+
+        </div>
+    }
+
+</div>
+
+@*<hr />*@
 
 <div>
-    <h4>Post</h4>
-    <div>
-        <img src="@Model.MediaUrl" />
-    </div>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+        @if (User.IsInRole("Admin"))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.MediaUrl)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MediaUrl)
+            </dd>
 
-        <dd>
-            @Html.Raw(Model.Body) @*This removes html tags from the string.*@
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Published)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Published)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Slug)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MediaUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MediaUrl)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Published)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Published)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.Slug)
+            </dd>
+        }
     </dl>
 </div>
 <p>
     @if (User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) <span>|</span>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "editText" }) <span>|</span>
     }
-   
-    @Html.ActionLink("Back to List", "Index")
+
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "backToListText" })
 </p>

@@ -94,3 +94,7 @@ C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jw
 C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\obj\Release\jwhitehead-Blog.csprojResolveAssemblyReference.cache
 C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\obj\Release\jwhitehead-Blog.dll
 C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\obj\Release\jwhitehead-Blog.pdb
+C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\bin\PagedList.dll
+C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\bin\PagedList.Mvc.dll
+C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\bin\PagedList.xml
+C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\bin\PagedList.Mvc.xml
