@@ -15,6 +15,13 @@ namespace jwhitehead_Blog.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        //example using Linq to find user comments of a specific user
+        //public ActionResult UserComments(string userId)
+        //{
+        //    var user = db.Users.Find(userId);
+        //    var usercomments = db.Comments.Where(c => c.AuthorId == userId);
+        //}
+
         // GET: Comments
         public ActionResult Index()
         {

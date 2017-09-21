@@ -58,11 +58,11 @@ namespace jwhitehead_Blog
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "855180597882-ovptog9jqcvb2p458effoppm3s0etjcg.apps.googleusercontent.com",
+                ClientSecret = "ryzXn_0izLNKndSZdpXtGqu3"
+            });
         }
     }
 }

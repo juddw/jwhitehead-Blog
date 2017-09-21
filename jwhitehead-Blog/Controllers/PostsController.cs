@@ -29,7 +29,16 @@ namespace jwhitehead_Blog.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1); // if page is null, it defaults to page 1.
 
-            if(Request.IsAuthenticated && User.IsInRole("Admin"))
+            //example using Linq to find user with more than 5 comments of a specific user
+            //private ApplicationDbContext db = new ApplicationDbContext();
+            //public ActionResult Index()
+            //{
+            //    var userHighComments = db.Users.Where(u => u.Comments.Count >= 5 ).ToList();
+            //    ViewBag.userHighComments = userHighComments;
+            //    return View();
+            //}
+
+            if (Request.IsAuthenticated && User.IsInRole("Admin"))
             {
                 return View(db.Posts.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
             }

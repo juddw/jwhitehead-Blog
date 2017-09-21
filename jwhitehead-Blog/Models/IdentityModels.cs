@@ -57,5 +57,8 @@ namespace jwhitehead_Blog.Models.CodeFirst
         You do not need to update-database if you change variable name. */
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
+
+        // Example
+        //public virtual ICollection<Comment> Comments { get; set; }
     }
 }
