@@ -104,6 +104,7 @@
         }
     </dl>
 </div>
+
 <p>
 
 
@@ -115,5 +116,30 @@
     @Html.ActionLink("Back to List", "Index", null, new { @class = "backToListText" }) <span>|</span>
 
     @*Comments added*@
+    @*// need form
+    // tiny mce
+    // submit view
+    // postcontroller or you can use the commentscontroller
+    // view/posts/details is where the comments will be displayed*@
     @Html.ActionLink("Add Comment", "Create", "Comments", new { BlogPostId = Model.Id }, new { @class = "backToListText" })
 </p>
+
+@*added with Mark*@
+@using (Html.BeginForm("CreateComments", "Posts")) // way to grab data and send to backend.
+{
+    @Html.AntiForgeryToken()
+    <h3>Comments</h3>
+    <input type="number" name="BlogPostId" value="@Model.Id" hidden />
+    <input type="text" name="Body" rows="7" required /> // user must enter something.
+    <input class="btn btn-warning" type="submit" value="Send" />
+
+}
+@*added with Mark*@
+@foreach (var comment in Model.Comments)
+{
+    if (comment != null && comment.AuthorId != null)
+    {
+        <p>@comment.Body - @comment.Author.FullName on @comment.CreationDate</p>
+    }
+
+}

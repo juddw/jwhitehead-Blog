@@ -13,6 +13,7 @@ using jwhitehead_Blog.Helpers;
 using System.IO;
 using PagedList;
 using PagedList.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace jwhitehead_Blog.Controllers
 {
@@ -70,7 +71,7 @@ namespace jwhitehead_Blog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post blogPost = db.Posts.FirstOrDefault(p => p.Slug == slug);
+            Post blogPost = db.Posts.Include(p => p.Comments).FirstOrDefault(p => p.Slug == slug);
             if (blogPost == null)
             {
                 return HttpNotFound();
@@ -233,6 +234,27 @@ namespace jwhitehead_Blog.Controllers
             Post post = db.Posts.Find(id); // look in the Post Table of the db and find the id
             db.Posts.Remove(post);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // added with Mark
+        public ActionResult CreateComments([Bind(Include = "Id,Body,BlogPostId")] Comment comment)
+        {
+            var userId = User.Identity.GetUserId();
+
+            if (ModelState.IsValid)
+            {
+                if(!String.IsNullOrWhiteSpace(userId))
+                {
+                comment.CreationDate = DateTime.Now;
+                comment.AuthorId = User.Identity.GetUserId();
+                db.Comments.Add(comment);
+                db.SaveChanges();
+
+                var post = db.Posts.Find(comment.BlogPostId);
+                return RedirectToAction("Details", new { Slug = post.Slug });
+                }
+            }
             return RedirectToAction("Index");
         }
 
