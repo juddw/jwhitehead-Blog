@@ -28,17 +28,8 @@ namespace jwhitehead_Blog.Controllers
                 try
                 {
                     var body = "<p>Email From: <bold>{0}</bold>({1})</p><p>Message:</p><p>{2}</p>";
-                    var from = "MyPortfolio<antonio@raynor.com>";
-                    var subject = "Blog Contact Email: (no subject)";
-                    if (model.Subject != null)
-                    {
-                        subject = "Blog Contact Email: " + model.Subject;
-                    }
-                    if (model.Body != null)
-                    {
-                        body = model.Body + "<p>This is a message from your portfolio site.  The name and the email of the contacting person is above.</p>";
-                    }
-                    model.Body = "<i>This is a message from your portfolio site.  The name and the email of the contacting person is above.</i>";
+                    var from = "MyPortfolio<juddwhitehead@gmail.com>";
+                    var subject = "Blog Contact Email: " + model.Subject;
 
                     var email = new MailMessage(from, ConfigurationManager.AppSettings["emailto"])
                     {
