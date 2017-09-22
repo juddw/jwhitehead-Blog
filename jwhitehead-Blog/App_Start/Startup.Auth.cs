@@ -54,9 +54,9 @@ namespace jwhitehead_Blog
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1747812485523673",
+               appSecret: "cdc906d80dbb05b3e5881f201d703f3a");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
