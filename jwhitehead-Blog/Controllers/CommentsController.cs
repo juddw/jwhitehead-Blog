@@ -44,14 +44,14 @@ namespace jwhitehead_Blog.Controllers
             return View(comment);
         }
 
-        //// GET: Comments/Create
-        //[Authorize] // this will only allow access to anyone logged in.
-        //public ActionResult Create()
-        //{
-        //    ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
-        //    ViewBag.BlogPostId = new SelectList(db.Posts, "Id", "Title");
-        //    return View();
-        //}
+        // GET: Comments/Create
+        [Authorize] // this will only allow access to anyone logged in.
+        public ActionResult Create()
+        {
+            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
+            ViewBag.BlogPostId = new SelectList(db.Posts, "Id", "Title");
+            return View();
+        }
 
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

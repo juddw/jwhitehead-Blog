@@ -34,7 +34,11 @@ namespace jwhitehead_Blog.Controllers
                     {
                         subject = "Blog Contact Email: " + model.Subject;
                     }
-                    model.Body = "This is a message from your portfolio site.  The name and the email of the contacting person is above.";
+                    if (model.Body != null)
+                    {
+                        body = model.Body + "<p>This is a message from your portfolio site.  The name and the email of the contacting person is above.</p>";
+                    }
+                    model.Body = "<i>This is a message from your portfolio site.  The name and the email of the contacting person is above.</i>";
 
                     var email = new MailMessage(from, ConfigurationManager.AppSettings["emailto"])
                     {
@@ -45,10 +49,13 @@ namespace jwhitehead_Blog.Controllers
 
                     var svc = new PersonalEmail();
                     await svc.SendAsync(email);
-
                     return RedirectToAction("Sent");
                 }
-                catch (Exception ex) { Console.WriteLine(ex.Message); await Task.FromResult(0); }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    await Task.FromResult(0);
+                }
             }
             return View(model);
         }

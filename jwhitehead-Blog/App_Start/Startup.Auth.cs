@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
+using Owin.Security.Providers.LinkedIn;
 using jwhitehead_Blog.Models.CodeFirst;
 
 namespace jwhitehead_Blog
@@ -63,6 +64,9 @@ namespace jwhitehead_Blog
                 ClientId = "855180597882-ovptog9jqcvb2p458effoppm3s0etjcg.apps.googleusercontent.com",
                 ClientSecret = "ryzXn_0izLNKndSZdpXtGqu3"
             });
+
+            app.UseLinkedInAuthentication("78wet8hxtbtj2e", "euIwUKYFg4TfWUQR");
+
         }
     }
 }

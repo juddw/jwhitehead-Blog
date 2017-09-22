@@ -105,13 +105,15 @@
     </dl>
 </div>
 <p>
+
+
     @if (User.IsInRole("Admin"))
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "editText" }) <span>|</span>
     }
 
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "backToListText" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "backToListText" }) <span>|</span>
 
     @*Comments added*@
-    @Html.ActionLink("Add Comment", "Index", "Comments", new { id = Model.Id }, new { @class = "backToListText" })
+    @Html.ActionLink("Add Comment", "Create", "Comments", new { BlogPostId = Model.Id }, new { @class = "backToListText" })
 </p>
