@@ -138,6 +138,7 @@ namespace jwhitehead_Blog.Controllers
             return RedirectToAction("Index");
         }
 
+        // dispose of using statements when the block of code is complete.
         protected override void Dispose(bool disposing)
         {
             if (disposing)

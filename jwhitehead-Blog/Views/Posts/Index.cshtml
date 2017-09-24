@@ -11,7 +11,7 @@
 @using (Html.BeginForm("Index", "Posts", FormMethod.Post))
 {
     <div>
-        <input name="searchStr" type="text" placeholder="Search" value="@ViewBag.Search" />
+        <input name="searchStr" type="text" placeholder="Search" value="@ViewBag.Search" style="display: inline-block;"/>
         <button class="btn btn-primary" type="submit">Search</button>
     </div>
 }
@@ -67,7 +67,7 @@
             <td>
                 <img src="@item.MediaUrl" class="img-responsive" />
             </td>
-            <td>
+            <td style="width: 100px;">
                 @if (User.IsInRole("Admin"))
                 {
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "editText" }) <span>|</span>
