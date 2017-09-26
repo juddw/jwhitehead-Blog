@@ -1,36 +1,44 @@
 ﻿@*I in IEnumberable stands for Interface, allow for foreach loop to work. Enumerate.
     Interfaces only have the declarations
     model points to model folder.*@
-@model IEnumerable<jwhitehead_Blog.Models.CodeFirst.Post>
-
+@model IPagedList<jwhitehead_Blog.Models.CodeFirst.Post>
+@using PagedList;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 @{
-    ViewBag.Title = "Admin";
+    ViewBag.Title = "Admin Index";
 }
-
-<h2>Index</h2>
+@using (Html.BeginForm("Index", "Posts", FormMethod.Post))
+{
+    <div>
+        <input name="searchStr" type="text" placeholder="Search" value="@ViewBag.Search" style="display: inline-block;" />
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+}
+<h2>Admin Index</h2>
 
 <p>
-@if (User.IsInRole("Admin"))
-{
-    @Html.ActionLink("Create New", "Create", null, new { @class="createNewText" })
-}
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create", null, new { @class = "createNewText" })
+    }
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.First().Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Body)
+            @Html.DisplayNameFor(model => model.First().Body)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Created)
+            @Html.DisplayNameFor(model => model.First().Created)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UpdatedDate)
+            @Html.DisplayNameFor(model => model.First().UpdatedDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MediaUrl)
+            Image
         </th>
         <th></th>
     </tr>
@@ -43,12 +51,12 @@
             </td>
             <td>
                 @{
-            var shortDescript = String.Concat(item.Body.Take(150));
-        }
-        @Html.Raw(shortDescript)...@*This removes html tags from displaying in the string.*@
-                @*@Html.Raw(item.Body)*@ 
+                    var shortDescript = String.Concat(item.Body.Take(150));
+                }
+                @Html.Raw(shortDescript)...@*This removes html tags from displaying in the string.*@
+                @*@Html.Raw(item.Body)*@
                 @*<a href="@Url.Action("Details", "Posts", new { slug = item.Slug })" class="readMoreText">read more</a>*@
-                @Html.ActionLink("read more", "Details", "Posts", new { slug = item.Slug }, new { @class="readMoreText" })
+                @Html.ActionLink("read more", "Details", "Posts", new { slug = item.Slug }, new { @class = "readMoreText" })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
@@ -57,19 +65,23 @@
                 @Html.DisplayFor(modelItem => item.UpdatedDate)
             </td>
             <td>
-                <img src="@item.MediaUrl" />
+                <img src="@item.MediaUrl" class="img-responsive" />
             </td>
-            <td>
+            <td style="width: 100px;">
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class="editText" }) <span>|</span>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class="deleteText" })  <span>|</span>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "editText" }) <span>|</span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "deleteText" }) <span>|</span>
                 }
                 @Html.ActionLink("Details", "Details", "Posts", new { slug = item.Slug }, new { @class = "detailsText" })
                 @*<a href="@Url.Action("Details", "Posts", new { slug = item.Slug })" class="mySubmitBttn mySubmitBttnSize" style="text-decoration: none;">Details</a>*@
 
             </td>
         </tr>
-    }
+                    }
 
 </table>
+
+@*pagination*@
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))

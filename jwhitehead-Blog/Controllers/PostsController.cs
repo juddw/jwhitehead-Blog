@@ -79,6 +79,7 @@ namespace jwhitehead_Blog.Controllers
             return View(blogPost);
         }
 
+
         //public ActionResult Details(int? id) // jw: ? means you can pass a "null" value.
         //{
         //    if (id == null)
@@ -177,7 +178,7 @@ namespace jwhitehead_Blog.Controllers
         [Authorize(Roles = "Admin")] // this will only allow access to the Admin
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,UpdatedDate,MediaUrl,Published,Slug")] Post post, string mediaURL, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,UpdatedDate,MediaUrl,Published,Slug")] Post post, HttpPostedFileBase image)
         {
             // Image Upload Validation.
             if (image != null && image.ContentLength > 0) // checking to make sure there is a file, and that the file has more than 0 bytes of information.
@@ -197,10 +198,23 @@ namespace jwhitehead_Blog.Controllers
                     post.MediaUrl = filePath + image.FileName; // path of the file
                     image.SaveAs(Path.Combine(absPath, image.FileName)); // saves
                 }
-                else
+                var existPost = db.Posts.AsNoTracking().FirstOrDefault(p => p.Id == post.Id);
+                if(existPost.Title != post.Title)
                 {
-                    post.MediaUrl = mediaURL;
+                    var Slug = StringUtilities.URLFriendly(post.Title);
+                    if (String.IsNullOrWhiteSpace(Slug))
+                    {
+                        ModelState.AddModelError("Title", "Invalid title");
+                        return View(post);
+                    }
+                    if (db.Posts.Any(p => p.Slug == Slug)) // jw: check for duplicate name in db
+                    {
+                        ModelState.AddModelError("Title", "The title must be unique");
+                        return View(post);
+                    }
+                    post.Slug = Slug;
                 }
+               
                 post.UpdatedDate = System.DateTime.Now;
                 db.SaveChanges(); // jW: even if nothing changes and submit button is hit, it will rewrite the same info to db.
                 return RedirectToAction("Index");

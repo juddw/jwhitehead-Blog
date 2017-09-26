@@ -22,27 +22,27 @@ namespace jwhitehead_Blog.Controllers
         //    var usercomments = db.Comments.Where(c => c.AuthorId == userId);
         //}
 
-        // GET: Comments
-        public ActionResult Index()
-        {
-            var comments = db.Comments.Include(c => c.Author).Include(c => c.BlogPost);
-            return View(comments.ToList());
-        }
+        //// GET: Comments
+        //public ActionResult Index()
+        //{
+        //    var comments = db.Comments.Include(c => c.Author).Include(c => c.BlogPost);
+        //    return View(comments.ToList());
+        //}
 
-        // GET: Comments/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(comment);
-        }
+        //// GET: Comments/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Comment comment = db.Comments.Find(id);
+        //    if (comment == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(comment);
+        //}
 
         // GET: Comments/Create
         [Authorize] // this will only allow access to anyone logged in.
@@ -102,8 +102,9 @@ namespace jwhitehead_Blog.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(comment).State = EntityState.Modified;
+                comment.UpdatedDate = DateTime.Now;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Posts");
             }
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
             ViewBag.BlogPostId = new SelectList(db.Posts, "Id", "Title", comment.BlogPostId);
@@ -133,9 +134,10 @@ namespace jwhitehead_Blog.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comments.Find(id);
+            string slugDeleted = comment.BlogPost.Slug;
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details","Posts", new { slug = slugDeleted });
         }
 
         // dispose of using statements when the block of code is complete.

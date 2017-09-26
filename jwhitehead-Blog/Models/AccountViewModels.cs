@@ -5,6 +5,16 @@ namespace jwhitehead_Blog.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
+        // added these
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        // end added these
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -64,6 +74,16 @@ namespace jwhitehead_Blog.Models
 
     public class RegisterViewModel
     {
+        // added these
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        // end added these
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

@@ -8,15 +8,16 @@
    BLOG DETAILS
    =============================================== -->
 
-<div class="row add-padding bg-color2">
+<div class="row bg-color2" style="padding-bottom: 30px;">
 
 
-    @if (Model.MediaUrl == "")
+    @if (Model.MediaUrl == null)
     {
         // no image available so format wider.
-        <div class="col-sm-9 scrollimation fade-left d3" style="margin-left: 30px;">
+        <div class="col-sm-10 scrollimation fade-left d3" style="margin-left: 30px;">
 
             <p class="lead" style="font-weight: 500; font-size: 100%; margin-top: 20px;">
+                Posted:
                 @Html.DisplayFor(model => model.Created)
             </p>
 
@@ -41,43 +42,46 @@
     else
     {
         // image is available so format this way.
-        <div class="col-sm-5 scrollimation fade-right d1" style="margin-left: 30px;">
+        <div class="col-sm-12 scrollimation fade-right d1" style="margin-left: 30px;">
             <img class="img-responsive polaroid" src="@Model.MediaUrl" alt="" />
         </div>
 
-        <div class="col-sm-5 scrollimation fade-left d3" style="margin-left: 50px;">
 
-            <p class="lead" style="font-weight: 500; font-size: 100%; margin-top: 20px;">
-                @Html.DisplayFor(model => model.Created)
-            </p>
+        <div class="row">
+            <div class="col-sm-10 scrollimation fade-left d3" style="margin-left: 50px;">
 
-            <h1 class="big-text" id="myAboutMeHeader">
-                @Html.DisplayFor(model => model.Title)
-            </h1>
+                <p class="lead" style="font-weight: 500; font-size: 100%; margin-top: 50px;">
+                    Posted:
+                    @Html.DisplayFor(model => model.Created)
+                </p>
 
-            <div class="lead">
-                @*@Html.DisplayFor(model => model.Body)*@
-                <p>@Html.Raw(Model.Body)</p>
+                <h1 class="big-text" id="myAboutMeHeader">
+                    @Html.DisplayFor(model => model.Title)
+                </h1>
+
+                <div class="lead">
+                    @*@Html.DisplayFor(model => model.Body)*@
+                    <p>@Html.Raw(Model.Body)</p>
+                </div>
+
+                <br />
+                <p class="darkBrownText" style="font-weight: 500; font-size: 100%;">
+                    Updated:
+                    @Html.DisplayFor(model => model.UpdatedDate)
+                </p>
+
             </div>
-
-            <br />
-            <p class="darkBrownText" style="font-weight: 500; font-size: 100%;">
-                Updated:
-                @Html.DisplayFor(model => model.UpdatedDate)
-            </p>
-
         </div>
     }
 
 </div>
 
-@*<hr />*@
 
-<div>
-    <dl class="dl-horizontal">
+@if (User.IsInRole("Admin"))
+{
+    <div style="background-color: #ece3d6; margin: 5px -15px 15px -15px; padding-top: 15px; padding-bottom: 2px;">
+        <dl class="dl-horizontal">
 
-        @if (User.IsInRole("Admin"))
-        {
             <dt>
                 @Html.DisplayNameFor(model => model.MediaUrl)
             </dt>
@@ -101,27 +105,27 @@
             <dd>
                 @Html.DisplayFor(model => model.Slug)
             </dd>
-        }
-    </dl>
-</div>
 
-<p>
+        </dl>
+    </div>
+}
 
+<p style="margin: 5px 0px 50px 0px;">
 
     @if (User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "editText" }) <span>|</span>
+        @Html.ActionLink("Edit Post", "Edit", new { id = Model.Id }, new { @class = "editText" }) <span>|</span>
     }
 
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "backToListText" }) <span>|</span>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "backToListText" })
 
     @*Comments added*@
     @*// need form
-    // tiny mce
-    // submit view
-    // postcontroller or you can use the commentscontroller
-    // view/posts/details is where the comments will be displayed*@
-    @Html.ActionLink("Add Comment", "Create", "Comments", new { BlogPostId = Model.Id }, new { @class = "backToListText" })
+        // tiny mce
+        // submit view
+        // postcontroller or you can use the commentscontroller
+        // view/posts/details is where the comments will be displayed*@
+    @*@Html.ActionLink("Add Comment", "Create", "Comments", new { BlogPostId = Model.Id }, new { @class = "backToListText" })*@
 </p>
 
 @*added with Mark*@
@@ -129,17 +133,34 @@
 {
     @Html.AntiForgeryToken()
     <h3>Comments</h3>
-    <input type="number" name="BlogPostId" value="@Model.Id" hidden />
-    <input type="text" name="Body" rows="7" required /> // user must enter something.
-    <input class="btn btn-warning" type="submit" value="Send" />
-
+    if (Request.IsAuthenticated)
+    {
+        <input type="number" name="BlogPostId" value="@Model.Id" hidden />
+        <input type="text" name="Body" rows="7" required style="width: 300px;" /> // user must enter something.
+        <input class="btn btn-primary" style="margin-top: 10px;" type="submit" value="Submit" />
+    }
+    else
+    {
+        <p>Please log in to leave a comment.</p>
+    }
+    <hr style="border-color: #808080;" />
 }
 @*added with Mark*@
 @foreach (var comment in Model.Comments)
 {
     if (comment != null && comment.AuthorId != null)
     {
-        <p>@comment.Body - @comment.Author.FullName on @comment.CreationDate</p>
+        <p><span style="font-weight: 600">@comment.Body</span> - @comment.Author.FullName <br />@comment.CreationDate</p>
+
+        <p style="margin: 0px 0px 0px 0px;">
+            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                @Html.ActionLink("Edit", "Edit", "Comments", new { id = comment.Id }, new { @class = "editText" }) <span>|</span>
+                @Html.ActionLink("Delete", "Delete", "Comments", new { id = comment.Id }, new { @class = "editText" })
+            }
+        </p>
+
+        <hr style="border-color: #808080;" />
     }
 
 }

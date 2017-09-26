@@ -117,7 +117,7 @@
         @Html.ActionLink("Edit Post", "Edit", new { id = Model.Id }, new { @class = "editText" }) <span>|</span>
     }
 
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "backToListText"})
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "backToListText" })
 
     @*Comments added*@
     @*// need form
@@ -133,10 +133,17 @@
 {
     @Html.AntiForgeryToken()
     <h3>Comments</h3>
-    <input type="number" name="BlogPostId" value="@Model.Id" hidden />
-    <input type="text" name="Body" rows="7" required style="width: 300px;"/> // user must enter something.
-    <input class="btn btn-primary" style="margin-top: 10px;" type="submit" value="Submit" />
-    <hr style="border-color: #808080;"/>
+    if (Request.IsAuthenticated)
+    {
+        <input type="number" name="BlogPostId" value="@Model.Id" hidden />
+        <input type="text" name="Body" rows="7" required style="width: 300px;" /> // user must enter something.
+        <input class="btn btn-primary" style="margin-top: 10px;" type="submit" value="Submit" />
+    }
+    else
+    {
+        <p>Please log in to leave a comment.</p>
+    }
+    <hr style="border-color: #808080;" />
 }
 @*added with Mark*@
 @foreach (var comment in Model.Comments)
@@ -144,12 +151,12 @@
     if (comment != null && comment.AuthorId != null)
     {
         <p><span style="font-weight: 600">@comment.Body</span> - @comment.Author.FullName <br />@comment.CreationDate</p>
-        
+
         <p style="margin: 0px 0px 0px 0px;">
             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "editText" }) <span>|</span>
-                @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "editText" })
+                @Html.ActionLink("Edit", "Edit", "Comments", new { id = comment.Id }, new { @class = "editText" }) <span>|</span>
+                @Html.ActionLink("Delete", "Delete", "Comments", new { id = comment.Id }, new { @class = "editText" })
             }
         </p>
 
