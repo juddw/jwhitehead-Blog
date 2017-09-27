@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace jwhitehead_Blog.Controllers
 {
     [RequireHttps]
-    public class HomeController : Controller
+    public class HomeController : Universal
     {
         public ActionResult Index()
         {

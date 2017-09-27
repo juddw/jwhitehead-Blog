@@ -14,15 +14,16 @@ using System.IO;
 using PagedList;
 using PagedList.Mvc;
 using Microsoft.AspNet.Identity;
+using jwhitehead_Blog.Models;
 
 namespace jwhitehead_Blog.Controllers
 {
     [RequireHttps] // one of the steps to force the page to render secure page.
-    public class PostsController : Controller
+    public class PostsController : Universal
     {
-        // instantiate the db object from IdentityModels.
-        // it can find the ApplicationDbContext method because of above namespace "using jwhitehead_Blog.Models.CodeFirst;"
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //// instantiate the db object from IdentityModels.
+        //// it can find the ApplicationDbContext method because of above namespace "using jwhitehead_Blog.Models.CodeFirst;"
+        //private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Posts
         public ActionResult Index(int? page)
@@ -199,7 +200,7 @@ namespace jwhitehead_Blog.Controllers
                     image.SaveAs(Path.Combine(absPath, image.FileName)); // saves
                 }
                 var existPost = db.Posts.AsNoTracking().FirstOrDefault(p => p.Id == post.Id);
-                if(existPost.Title != post.Title)
+                if (existPost.Title != post.Title)
                 {
                     var Slug = StringUtilities.URLFriendly(post.Title);
                     if (String.IsNullOrWhiteSpace(Slug))
@@ -214,7 +215,7 @@ namespace jwhitehead_Blog.Controllers
                     }
                     post.Slug = Slug;
                 }
-               
+
                 post.UpdatedDate = System.DateTime.Now;
                 db.SaveChanges(); // jW: even if nothing changes and submit button is hit, it will rewrite the same info to db.
                 return RedirectToAction("Index");
@@ -258,15 +259,15 @@ namespace jwhitehead_Blog.Controllers
 
             if (ModelState.IsValid)
             {
-                if(!String.IsNullOrWhiteSpace(userId))
+                if (!String.IsNullOrWhiteSpace(userId))
                 {
-                comment.CreationDate = DateTime.Now;
-                comment.AuthorId = User.Identity.GetUserId();
-                db.Comments.Add(comment);
-                db.SaveChanges();
+                    comment.CreationDate = DateTime.Now;
+                    comment.AuthorId = User.Identity.GetUserId();
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
 
-                var post = db.Posts.Find(comment.BlogPostId);
-                return RedirectToAction("Details", new { Slug = post.Slug });
+                    var post = db.Posts.Find(comment.BlogPostId);
+                    return RedirectToAction("Details", new { Slug = post.Slug });
                 }
             }
             return RedirectToAction("Index");

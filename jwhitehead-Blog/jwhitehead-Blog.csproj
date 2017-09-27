@@ -401,6 +401,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\CodeFirst\Post.cs" />
     <Compile Include="Models\SearchHelper.cs" />
+    <Compile Include="Models\Universal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -422,7 +423,6 @@
     <Content Include="assets\images\bg-portfolio.jpg" />
     <Content Include="assets\images\bg-resume.png" />
     <Content Include="assets\images\bg-twitter.png" />
-    <Content Include="assets\images\blog-images\birdImage.jpg" />
     <Content Include="assets\images\blog-images\Portfolio-image.gif" />
     <Content Include="assets\images\blog-thumb.png" />
     <Content Include="assets\images\bugTracker-thumb.jpg" />
@@ -699,6 +699,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Universal\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

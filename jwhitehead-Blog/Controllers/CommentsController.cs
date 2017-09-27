@@ -7,13 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using jwhitehead_Blog.Models.CodeFirst;
+using jwhitehead_Blog.Models;
 
 namespace jwhitehead_Blog.Controllers
 {
     [RequireHttps]
-    public class CommentsController : Controller
+    public class CommentsController : Universal
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
 
         //example using Linq to find user comments of a specific user
         //public ActionResult UserComments(string userId)
@@ -45,7 +46,7 @@ namespace jwhitehead_Blog.Controllers
         //}
 
         // GET: Comments/Create
-        [Authorize] // this will only allow access to anyone logged in.
+        [Authorize] // this will only allow access to anyone who is logged in.
         public ActionResult Create()
         {
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
@@ -56,7 +57,7 @@ namespace jwhitehead_Blog.Controllers
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize] // this will only allow access to the Admin
+        [Authorize] // this will only allow access to anyone who is logged in.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Body,CreationDate,UpdatedDate,UpdateReason,BlogPostId,AuthorId")] Comment comment)
