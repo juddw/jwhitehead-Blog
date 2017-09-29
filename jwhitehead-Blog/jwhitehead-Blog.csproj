@@ -423,8 +423,13 @@
     <Content Include="assets\images\bg-portfolio.jpg" />
     <Content Include="assets\images\bg-resume.png" />
     <Content Include="assets\images\bg-twitter.png" />
-    <Content Include="assets\images\blog-images\Portfolio-image.gif" />
     <Content Include="assets\images\blog-thumb.png" />
+    <Content Include="assets\images\blog-images\blogImage-01.jpg" />
+    <Content Include="assets\images\blog-images\blogImage-02.jpg" />
+    <Content Include="assets\images\blog-images\blogImage-03.jpg" />
+    <Content Include="assets\images\blog-images\blogImage-04.jpg" />
+    <Content Include="assets\images\blog-images\blogImage-07.jpg" />
+    <Content Include="assets\images\blog-images\blogImage-08.jpg" />
     <Content Include="assets\images\bugTracker-thumb.jpg" />
     <Content Include="assets\images\calculator-thumb.png" />
     <Content Include="assets\images\carFinder-thumb.jpg" />
