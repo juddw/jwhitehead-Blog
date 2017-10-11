@@ -423,6 +423,7 @@
     <Content Include="assets\images\bg-portfolio.jpg" />
     <Content Include="assets\images\bg-resume.png" />
     <Content Include="assets\images\bg-twitter.png" />
+    <Content Include="assets\images\blog-images\blogImage-09.jpg" />
     <Content Include="assets\images\blog-thumb.png" />
     <Content Include="assets\images\blog-images\blogImage-01.jpg" />
     <Content Include="assets\images\blog-images\blogImage-02.jpg" />
@@ -649,7 +650,9 @@
     <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
