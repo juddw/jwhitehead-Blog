@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace jwhitehead_Blog.Models
 {
-        public class EmailModel
+    public class EmailModel
         {
             [Required, Display(Name = "Name")]
             public string FromName { get; set; }

@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\jwhitehead-Blog",
+    "\\jwhitehead-Blog\\Controllers",
+    "\\jwhitehead-Blog\\Views",
+    "\\jwhitehead-Blog\\Views\\Account",
+    "\\jwhitehead-Blog\\Views\\Comments",
+    "\\jwhitehead-Blog\\Views\\Home",
+    "\\jwhitehead-Blog\\Views\\Shared"
+  ],
+  "SelectedNode": "\\jwhitehead-Blog\\Controllers\\HomeController.cs",
+  "PreviewInSolutionExplorer": false
+}
