@@ -13,7 +13,7 @@ namespace jwhitehead_Blog.Controllers
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Posts");
-            //return View();
+            // return View();
         }
 
         [HttpPost]
@@ -35,14 +35,14 @@ namespace jwhitehead_Blog.Controllers
                         IsBodyHtml = true
                     };
 
-                    //Should be null if human is filling out form cause this is a hidden field.
+                    // Should be null if human is filling out form cause this is a hidden field.
                     if (model.FromEmail2 == null)
                     {
                         var svc = new PersonalEmail();
                         await svc.SendAsync(email);
                     }
 
-                    // This goes no where so it exits to try statement
+                    // This goes no where so it exits try statement
                     return RedirectToAction("Sent");
                 }
                 catch (Exception ex)
