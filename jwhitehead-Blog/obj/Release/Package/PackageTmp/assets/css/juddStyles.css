@@ -1,0 +1,396 @@
+﻿
+/*-----------------------
+---- Main Styles ----
+-------------------------*/
+.pushNameDown {
+    margin-top: 12px;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+    .pushNameDown:hover,
+    .pushNameDown:active,
+    .pushNameDown:focus {
+        display: inline-block;
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+.myBlogImage {
+    background-image: url('../images/header-bg.jpg');
+    background-repeat: no-repeat;
+    background-position-y: -100px;
+    background-size: 1920px 432px;
+}
+
+.myDescriptionTitleHighlight {
+    font-family: Raleway, Arial, sans-serif;
+    font-size: 50px;
+    font-weight: 800;
+    color: #f0b40e;
+    text-shadow: 2px 2px 15px black, 0 0 25px black, 0 0 50px #c2a57e;
+}
+
+.myDescriptionTitle {
+    font-family: Raleway, Arial, sans-serif;
+    font-size: 50px;
+    font-weight: 800;
+    color: black;
+    text-shadow: 2px 2px 15px white, 0 0 25px white, 0 0 50px #c2a57e;
+}
+
+#myAboutMeHeader {
+    font-weight: 300;
+    color: #635645;
+}
+
+.mySmallQuoteText {
+    font-weight: 500;
+    color: #334959;
+}
+
+.lightBrownText {
+    font-weight: 400;
+    color: #c2a57e;
+}
+
+.lightBlueFillColor {
+    color: #b2c7c8;
+}
+
+.mediumBlueText {
+    font-weight: 500;
+    color: #377989;
+}
+
+.darkBrownText {
+    font-weight: 500;
+    color: #635645;
+}
+
+.darkBlueText {
+    font-weight: 500;
+    color: #334959;
+}
+
+/*.email2 {
+    display: block;
+}*/
+
+/*-----------------------
+---- About Me Styles ----
+-------------------------*/
+.columnText {
+    font-size: 20px;
+    font-weight: 300;
+    color: black;
+}
+
+/*-----------------------
+---- JS Exercise Styles ----
+-------------------------*/
+#jsExercises {
+    background-color: #fff;
+    padding-bottom: 60px;
+}
+
+.jsExamples {
+    text-align: center;
+    height: 300px;
+}
+
+    .jsExamples h3 {
+        margin-top: -20px;
+    }
+
+    .jsExamples p {
+        margin-bottom: 50px;
+    }
+
+.jsExerIconSq {
+    position: relative;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    margin: 20px auto 50px;
+    border-radius: 0%;
+    font-size: 40px;
+    line-height: 150px;
+    background: #334959;
+    color: #fff;
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+    .jsExerIconSq:hover {
+        -ms-transform: scale(1.1, 1.1); /* IE 9 */
+        -webkit-transform: scale(1.1, 1.1); /* Safari */
+        transform: scale(1.1, 1.1);
+        transition: all 0.2s ease-out;
+    }
+
+    .jsExerIconSq:after {
+        pointer-events: none;
+        content: "";
+        position: absolute;
+        width: 174px;
+        height: 174px;
+        top: -12px;
+        left: -12px;
+        border: 3px solid #334959;
+        border-radius: 0%;
+        -webkit-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+    }
+
+.jsExerIconCir {
+    position: relative;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    margin: 20px auto 50px;
+    border-radius: 50%;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 150px;
+    background: #377989;
+    color: #fff;
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+    .jsExerIconCir:hover {
+        -ms-transform: scale(1.1, 1.1); /* IE 9 */
+        -webkit-transform: scale(1.1, 1.1); /* Safari */
+        transform: scale(1.1, 1.1);
+        transition: all 0.2s ease-out;
+    }
+
+    .jsExerIconCir:after {
+        pointer-events: none;
+        content: "";
+        position: absolute;
+        width: 174px;
+        height: 174px;
+        top: -12px;
+        left: -12px;
+        border: 3px solid #377989;
+        border-radius: 50%;
+        -webkit-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+    }
+
+.no-csstransforms .jsExerIconSq:after {
+    display: none;
+}
+
+.jsExerIconSq:focus,
+.jsExerIconSq:active {
+    color: #fff;
+}
+
+/*------------------------------------------
+---- Resume Styling ----
+--------------------------------------------*/
+
+#resume {
+    background-image: url('../images/bg-resume.png');
+    background-repeat: no-repeat;
+    background-position: 5% 75%;
+    background-color: #f1f1f1;
+}
+
+#resumePaperSize {
+    padding: 30px;
+    border-style: solid;
+    border-color: #f9f1e6;
+    border-width: thin;
+    background-color: white;
+    width: auto;
+    height: auto;
+    font-family: 'Times New Roman', Times, serif;
+    box-shadow: -2px 5px 15px #000000;
+    -webkit-transform: rotate(1deg);
+    transform: rotate(1deg);
+}
+
+.resumeMyName {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.resumeCompany {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.resumeLocation {
+    font-size: 14px;
+    font-weight: 800;
+    float: none;
+}
+
+.resumeDate {
+    font-size: 14px;
+    font-weight: 800;
+    float: right;
+}
+
+.resumeJobTitle {
+    font-size: 14px;
+    font-style: oblique;
+}
+
+.resumeDescription {
+    font-size: 14px;
+}
+
+
+/*------------------------------------------
+---- Modal Exercises Styling ----
+--------------------------------------------*/
+.myContainer {
+    margin-top: 5px;
+}
+
+.darkBlue {
+    background-color: #334959;
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.mediumBlue {
+    background-color: #377989;
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.myModalHeaderText {
+    font-weight: 400;
+    color: white;
+}
+
+input {
+    display: block;
+}
+
+.buttonSpace {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.mySubmitBttn,
+.myResetBttn {
+    padding: 8px 21px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+    background: grey;
+    outline: none !important;
+    border-radius: 0;
+    transition: opacity .2s ease-out;
+}
+
+.mySubmitBttn {
+    background: #377989;
+}
+
+    .mySubmitBttn:hover,
+    .myResetBttn:hover {
+        color: #fff;
+        opacity: 0.9;
+    }
+
+    .mySubmitBttn:focus,
+    .mySubmitBttn:active,
+    .myResetBttn:focus,
+    .myResetBttn:active {
+        color: #fff;
+    }
+
+    .mySubmitBttn .fa,
+    .myResetBttn .fa {
+        margin-right: 15px;
+    }
+
+.mySubmitBttnSize {
+    width: 180px;
+    height: 45px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.fieldSpacing input {
+    margin-top: 10px;
+}
+
+#modalCloseBttnStyling {
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+    margin-right: -5px;
+    float: right;
+    color: white;
+}
+
+    #modalCloseBttnStyling:hover {
+        cursor: pointer;
+        color: white;
+        -webkit-transform: scale(1.2);
+        -webkit-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+    }
+
+.syntaxHighlighterWindow-Border {
+    background-color: grey;
+}
+
+/*------------------------------------------
+---- Modal Exercises Styling End ----
+--------------------------------------------*/
+
+
+
+/*------------------------------------------
+---- Blog Items Edit, Delete, Details Buttons ----
+--------------------------------------------*/
+ .createNewText {
+    font-weight: 500;
+    color: #377989;
+}
+
+.createNewText:hover {
+    font-weight: 500;
+    color: #377989;
+}
+
+
+.readMoreText,
+.backToListText,
+.detailsText,
+.deleteText,
+.editText {
+    font-weight: 500;
+    color: #377989;
+}
+
+    .readMoreText:hover,
+    .backToListText:hover,
+    .detailsText:hover,
+    .deleteText:hover,
+    .editText:hover {
+        font-weight: 500;
+        color: #377989;
+    }

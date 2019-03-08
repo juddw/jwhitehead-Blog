@@ -140,3 +140,4 @@ C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jw
 C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\obj\Release\jwhitehead-Blog.csproj.CopyComplete
 C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\obj\Release\jwhitehead-Blog.dll
 C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\obj\Release\jwhitehead-Blog.pdb
+C:\Users\Judd Whitehead\documents\visual studio 2017\Projects\jwhitehead-Blog\jwhitehead-Blog\obj\Release\jwhitehead-Blog.csprojAssemblyReference.cache
