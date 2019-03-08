@@ -1,11 +1,8 @@
 ﻿using jwhitehead_Blog.Models;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace jwhitehead_Blog.Controllers
@@ -38,8 +35,14 @@ namespace jwhitehead_Blog.Controllers
                         IsBodyHtml = true
                     };
 
-                    var svc = new PersonalEmail();
-                    await svc.SendAsync(email);
+                    //Should be null if human is filling out form cause this is a hidden field.
+                    if (model.FromEmail2 == null)
+                    {
+                        var svc = new PersonalEmail();
+                        await svc.SendAsync(email);
+                    }
+
+                    // This goes no where so it exits to try statement
                     return RedirectToAction("Sent");
                 }
                 catch (Exception ex)
